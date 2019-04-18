@@ -1,9 +1,3 @@
-function onWindowResize() {
-	camera.aspect = window.innerWidth / window.innerHeight;
-	camera.updateProjectionMatrix();
-	renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
 /**
  * Performs basic animations (called by requestAnimationFrame())
  * 
@@ -13,8 +7,6 @@ function onWindowResize() {
  */
 function animate(time) {
 	time *= 0.001; // seconds
-
-	// moveLeft(guideBlock);
 
 	render();
 	requestAnimationFrame(animate);
@@ -61,54 +53,47 @@ function resizeBlockDown(block) {
 
 // drawing shapes
 function drawCube(color) {
-	var block = new THREE.BoxGeometry(guideBlock.width, guideBlock.height, guideBlock.depth);
+	const box = new THREE.Box3().setFromObject(cursorMesh);
+	var block = new THREE.BoxGeometry(box.getSize().x, box.getSize().y, box.getSize().z);
 	var material = new THREE.MeshPhongMaterial({
 		color: color,
 		specular: 0xffffff,
-		shininess: 1000,
-		shading: THREE.SmoothShading
+		shininess: 1000
 	});
 
-	addObject(block, material);
+	addObject(block, material, box.getCenter());
 }
 
 function drawSphere(color) {
-	var block = new THREE.SphereGeometry(guideBlock.width);
+	const box = new THREE.Box3().setFromObject(cursorMesh);
+	var block = new THREE.SphereGeometry(box.getSize().x);
 	var material = new THREE.MeshPhongMaterial({
 		color: color,
 		specular: 0xffffff,
-		shininess: 1000,
-		shading: THREE.SmoothShading
+		shininess: 1000
 	});
 
-	addObject(block, material);
+	addObject(block, material, box.getCenter());
 }
 
 function drawCylindar() {
-	//fix
-	var block = new THREE.CylinderGeometry(guideBlock.width, guideBlock.width, guideBlock.height);
+	const box = new THREE.Box3().setFromObject(cursorMesh);
+	var block = new THREE.CylindarGeometry(box.getSize().x, box.getSize().y, box.getSize().z);
 	var material = new THREE.MeshPhongMaterial({
 		color: color,
 		specular: 0xffffff,
-		shininess: 1000,
-		shading: THREE.SmoothShading
+		shininess: 1000
 	});
 
-	addObject(block, material);
+	addObject(block, material, box.getCenter());
 }
 
-function addObject(block, material) {
-	addObject(block, material, guideBlock.xloc, guideBlock.yloc, guideBlock.zloc)
-}
-
-function addObject(block, material, xloc, yloc, zloc) {
+function addObject(block, material, location) {
 	// creates the "cursor"
 	var blockMesh = new THREE.Mesh(block, material);
 
 	// set the location of the block
-	blockMesh.xloc = xloc;
-	blockMesh.yloc = yloc;
-	blockMesh.zloc = zloc;
+	blockMesh.position.set(location.x, location.y, location.z);
 
 	// add final mesh to the scene
 	scene.add(blockMesh);

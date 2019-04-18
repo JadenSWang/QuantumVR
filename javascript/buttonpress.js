@@ -1,15 +1,25 @@
 document.onkeypress = function(e){
+    // Movement
     if(e.keyCode == 97){
-        moveLeft(guideBlockMesh);
+        moveLeft(cursorMesh);
     } else if(e.keyCode == 100){
-        moveRight(guideBlockMesh)
+        moveRight(cursorMesh)
     } else if(e.keyCode == 119){
-        moveUp(guideBlockMesh)
+        moveUp(cursorMesh)
     } else if(e.keyCode == 115){
-        moveDown(guideBlockMesh)
+        moveDown(cursorMesh)
     } else if(e.keyCode == 113){
-        moveOut(guideBlockMesh)
+        moveOut(cursorMesh)
     } else if(e.keyCode == 101){
-        moveIn(guideBlockMesh)
+        moveIn(cursorMesh)
+    }
+
+    // Draw items
+    if(e.keyCode == 122){
+        drawCube(currentColor);
+    } else if(e.keycode == 120){
+
+    } else if(e.keycode == 99){
+
     }
 }

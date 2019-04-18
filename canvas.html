@@ -22,6 +22,8 @@
 <script src="javascript/three.js"></script>
 <script src="javascript/canvasGeometry.js"></script>
 <script>
+	var currentColor = 0xFFFFFF;
+
 	// initialize the canvas
 	const renderer = new THREE.WebGLRenderer({
 		antialias: true, // adjust in the future
@@ -35,17 +37,16 @@
 	var scene = new THREE.Scene();
 
 	// initializes and adds the green block
-	var guideBlock = new THREE.BoxGeometry(10, 10, 10);
+	var cursorBlock = new THREE.BoxGeometry(10, 10, 10);
 	var material = new THREE.MeshPhongMaterial({
 		color: 0xFFFFFF,
 		specular: 0xffffff,
-		shininess: 1000,
-		shading: THREE.SmoothShading
+		shininess: 1000
 	});
 
 	// creates the "cursor"
-	var guideBlockMesh = new THREE.Mesh(guideBlock, material);
-	scene.add(guideBlockMesh);
+	var cursorMesh = new THREE.Mesh(cursorBlock, material);
+	scene.add(cursorMesh);
 
 	// light?
 	var light = new THREE.PointLight(0xff80C0, 2, 0);
