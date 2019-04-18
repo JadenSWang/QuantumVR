@@ -18,28 +18,23 @@ function moveLeft(blockMesh) {
 }
 
 function moveRight(blockMesh) {
-	blockMesh.position.set(blockMesh.position.x + 10, blockMesh.position.y,
-		blockMesh.position.z);
+	blockMesh.position.set(blockMesh.position.x + 10, blockMesh.position.y,	blockMesh.position.z);
 }
 
 function moveDown(blockMesh) {
-	blockMesh.position.set(blockMesh.position.x, blockMesh.position.y - 10,
-		blockMesh.position.z);
+	blockMesh.position.set(blockMesh.position.x, blockMesh.position.y - 10,	blockMesh.position.z);
 }
 
 function moveUp(blockMesh) {
-	blockMesh.position.set(blockMesh.position.x, blockMesh.position.y + 10,
-		blockMesh.position.z);
+	blockMesh.position.set(blockMesh.position.x, blockMesh.position.y + 10,	blockMesh.position.z);
 }
 
 function moveOut(blockMesh) {
-	blockMesh.position.set(blockMesh.position.x, blockMesh.position.y,
-		blockMesh.position.z + 10);
+	blockMesh.position.set(blockMesh.position.x, blockMesh.position.y,	blockMesh.position.z + 10);
 }
 
 function moveIn(blockMesh) {
-	blockMesh.position.set(blockMesh.position.x, blockMesh.position.y,
-		blockMesh.position.z - 10);
+	blockMesh.position.set(blockMesh.position.x, blockMesh.position.y,	blockMesh.position.z - 10);
 }
 
 // // block resizing
@@ -66,7 +61,7 @@ function drawCube(color) {
 
 function drawSphere(color) {
 	const box = new THREE.Box3().setFromObject(cursorMesh);
-	var block = new THREE.SphereGeometry(box.getSize().x);
+	var block = new THREE.SphereGeometry(box.getSize().x/2, 10, 10);
 	var material = new THREE.MeshPhongMaterial({
 		color: color,
 		specular: 0xffffff,
@@ -76,9 +71,9 @@ function drawSphere(color) {
 	addObject(block, material, box.getCenter());
 }
 
-function drawCylindar() {
+function drawCylinder(color) {
 	const box = new THREE.Box3().setFromObject(cursorMesh);
-	var block = new THREE.CylindarGeometry(box.getSize().x, box.getSize().y, box.getSize().z);
+	var block = new THREE.CylinderGeometry(box.getSize().z/2, box.getSize().z/2, box.getSize().y);
 	var material = new THREE.MeshPhongMaterial({
 		color: color,
 		specular: 0xffffff,
