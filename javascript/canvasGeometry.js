@@ -42,14 +42,14 @@ function moveIn(blockMesh) {
 		blockMesh.position.z - 10);
 }
 
-// block resizing
-function resizeBlockUp(block) {
-	block.size.set(block.width, block.height, block.depth);
-}
+// // block resizing
+// function resizeBlockUp(block) {
+// 	block.size.set(block.width, block.height, block.depth);
+// }
 
-function resizeBlockDown(block) {
-	block.size.set(block.width, block.height, block.depth);
-}
+// function resizeBlockDown(block) {
+// 	block.size.set(block.width, block.height, block.depth);
+// }
 
 // drawing shapes
 function drawCube(color) {
@@ -94,6 +94,7 @@ function addObject(block, material, location) {
 
 	// set the location of the block
 	blockMesh.position.set(location.x, location.y, location.z);
+	blockMesh.rotation.set(cursorMesh.rotation.x, cursorMesh.rotation.y, cursorMesh.rotation.z);
 
 	// add final mesh to the scene
 	scene.add(blockMesh);
