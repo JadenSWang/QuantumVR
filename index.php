@@ -1,156 +1,84 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<title>Geometron 3D ThreeJS</title>
+    <meta charset="utf-8">
+    <title>Geometron 3D ThreeJS</title>
 </head>
 
-<table id="linktable">
-	<tr>
-		<td><a href="editor.php"> <img src="mapicons/editor.svg" />
-			</a></td>
-		<td><a href="shapetableeditor.php"> <img src="mapicons/hypercube.svg" />
-			</a></td>
-	</tr>
-</table>
-<textarea id="textio"></textarea>
-<div id="gobutton"></div>
-<input id="actioninput" />
-<input id="addressinput" />
-
-<table id="softkeypad">
-</table>
-
-<?php echo file_get_contents("canvas.html"); ?>
-
-<!--Canvas/Scene-->
-<script id="canvasGeometry">
-function canvasGeometry(){
-    <?php echo file_get_contents("javascript/canvasGeometry.js"); ?>
-}
-</script>
-
-<script id="init">
-function init(){
-    <?php echo file_get_contents("javascript/init.js"); ?>
-}
-</script>
-
-<script src="javascript/buttonpress.js"></script>
+<body>
+<div id="main">
+    <?php echo file_get_contents("html/sidenav.html") ?>    
+    <?php echo file_get_contents("html/canvas.html"); ?>
+</div>
+</body>
 
 <style>
-	#spellbox {
-		position: absolute;
-		left: 0px;
-		right: 0px;
-		bottom: 0px;
-		height: 100px;
-		overflow: scroll;
-	}
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+    }
 
-	#actioninput {
-		position: absolute;
-		left: 17em;
-		top: 1%;
-		border: solid;
-		width: 1em;
-		border-radius: 5px;
-		border-color: green;
-	}
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
 
-	#addressinput {
-		position: absolute;
-		left: 19em;
-		top: 1%;
-		border: solid;
-		width: 3em;
-		border-radius: 5px;
-		border-color: blue;
-	}
+    .sidenav a:hover {
+        color: #f1f1f1;
+    }
 
-	#spellcanvas {
-		position: absolute;
-		bottom: 0px;
-		left: 0px;
-		border: solid;
-	}
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
 
-	#mainCanvas {
-		position: absolute;
-		left: 12em;
-		top: 1%;
-		height: 20px;
-		width: 20px;
-		border: solid;
-		background-color: white;
-	}
+    #main {
+        transition: margin-left .5s;
+        padding: 16px;
+    }
 
-	#softkeypad {
-		position: absolute;
-		right: 0px;
-		bottom: 11%;
-		z-index: 50;
-		height: 10%;
-		width: 20%;
-	}
+    @media screen and (max-height: 450px) {
+        .sidenav {
+            padding-top: 15px;
+        }
 
-	#softkeypad td {
-		cursor: pointer;
-	}
-
-	#softkeypad td:hover {
-		background-color: green;
-	}
-
-	#softkeypad td:active {
-		background-color: yellow;
-	}
-
-	#linktable {
-		position: absolute;
-		left: 0px;
-		top: 0px;
-		z-index: -100;
-	}
-
-	#linktable img {
-		width: 50px;
-	}
-
-	#textio {
-		position: absolute;
-		right: 0.1%;
-		top: 2%;
-		height: 41%;
-		width: 19.3%;
-		border: solid;
-		z-index: 100;
-		resize: none;
-	}
-
-	#gobutton {
-		position: absolute;
-		top: 1%;
-		left: 7em;
-		width: 4em;
-		height: 2em;
-		background-color: green;
-		cursor: pointer;
-		border: solid;
-		border-color: black;
-		border-width: 5px;
-		border-radius: 2em;
-		z-index: 5;
-	}
-
-	#gobutton:active {
-		background-color: blue;
-	}
-
-	#gobutton:hover {
-		background-color: #80ff80;
-	}
+        .sidenav a {
+            font-size: 18px;
+        }
+    }
 </style>
 
-</body>
+
+<!--Sidebar Navigation-->
+<script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "20%";
+        document.getElementById("main").style.marginLeft = "20%";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+</script>
+
+<!--Keystroke Commands-->
+<script src="javascript/buttonpress.js"></script>
+
 </html>

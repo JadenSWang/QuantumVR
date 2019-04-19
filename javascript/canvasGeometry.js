@@ -87,8 +87,9 @@ class GeometricObjects {
 			new THREE.BoxGeometry(10, 10, 10),
 			new THREE.MeshPhongMaterial({
 				color: 0xFFFFFF,
-				specular: 0xffffff,
-				shininess: 1000
+				opacity: 0.3,
+				shininess: 1000,
+				transparent: true
 			}),
 		);
 

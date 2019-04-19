@@ -1,0 +1,53 @@
+<!--Sidebar NavigationmainCanvas-->
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <span class="previewCanvas"><canvas></canvas></span>
+</div>
+
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+
+<style>
+    .preivewCanvas canvas {
+        margin-left: 3em;
+        margin-bottom: 3em;
+        width: 90%;
+        float: left;
+    }
+</style>
+
+<script src="javascript/three.js"></script>
+<script>
+    var currentColor = 0xFFFFFF;
+
+    // New Scene!
+    const sidebarScene = new THREE.Scene();
+
+    // initialize the renderer
+    const sideBarRenderer = new THREE.WebGLRenderer({
+        antialias: true, // adjust in the future
+        canvas: document.querySelector(".previewCanvas canvas")
+    });
+
+    // set up the camera
+    var sideBarCamera = new THREE.PerspectiveCamera(70, 2, 1, 1000);
+    sideBarCamera.position.z = 400;
+    sideBarCamera.zoom = 20;
+
+    // light?
+    var light = new THREE.PointLight(0xff80C0, 2, 0);
+    light.position.set(200, 100, 300);
+    sidebarScene.add(light);
+
+    requestAnimationFrame(animate);
+
+    function animate(time) {
+        time *= 0.001; // seconds
+
+        render();
+        requestAnimationFrame(animate);
+    }
+
+    function render() {
+        sideBarRenderer.render(sidebarScene, sideBarCamera);
+    }
+</script>
