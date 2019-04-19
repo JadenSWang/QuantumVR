@@ -14,7 +14,6 @@ function animate(time) {
 
 class Block {
 	_blockMesh;
-	_center;
 
 	constructor(block, material, center, rotation) {
 		// creates the "cursor"
@@ -24,8 +23,6 @@ class Block {
 		// set the location of the block
 		this._blockMesh.position.set(center.x, center.y, center.z);
 		this._blockMesh.rotation.set(rotation.x, rotation.y, rotation.z);
-
-		this._center = center;
 	}
 
 	/**
@@ -43,6 +40,10 @@ class Block {
 
 	getRotation = function () {
 		return this._blockMesh.rotation;
+	}
+
+	getLocation = function () {
+		return new THREE.Box3().setFromObject(this._blockMesh).getCenter();
 	}
 }
 
@@ -96,6 +97,9 @@ class GeometricObjects {
 
 	// drawing shapes
 	drawCube = function (color) {
+		if (this.contains())
+			return;
+
 		const box = new THREE.Box3().setFromObject(this._cursor.getMesh());
 		var block = new Block(
 			new THREE.BoxGeometry(box.getSize().x, box.getSize().y, box.getSize().z),
@@ -112,6 +116,9 @@ class GeometricObjects {
 	}
 
 	drawSphere = function (color) {
+		if (this.contains())
+			return;
+
 		const box = new THREE.Box3().setFromObject(this._cursor.getMesh());
 		var block = new Block(
 			new THREE.SphereGeometry(box.getSize().x / 2, 10, 10),
@@ -129,6 +136,9 @@ class GeometricObjects {
 	}
 
 	drawCylinder = function (color) {
+		if (this.contains())
+			return;
+
 		const box = new THREE.Box3().setFromObject(this._cursor.getMesh());
 		var block = new Block(
 			new THREE.CylinderGeometry(box.getSize().z / 2, box.getSize().z / 2, box.getSize().y),
@@ -143,6 +153,16 @@ class GeometricObjects {
 
 		// Add to the array of all the objects
 		this._placedObjectMeshes.push(block);
+	}
+
+	// Checks if the object already exists in the canvas
+	contains = function () {
+		for (var i = 0; i < this._placedObjectMeshes.length; i++) {
+			if (this._placedObjectMeshes[i].getLocation().equals(this._cursor.getLocation()))
+				return true;
+		}
+
+		return false;
 	}
 }
 
