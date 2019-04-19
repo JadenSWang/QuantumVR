@@ -36,17 +36,7 @@
 	camera.zoom = 5;
 	var scene = new THREE.Scene();
 
-	// initializes and adds the green block
-	var cursorBlock = new THREE.BoxGeometry(10, 10, 10);
-	var material = new THREE.MeshPhongMaterial({
-		color: 0xFFFFFF,
-		specular: 0xffffff,
-		shininess: 1000
-	});
-
-	// creates the "cursor"
-	var cursorMesh = new THREE.Mesh(cursorBlock, material);
-	scene.add(cursorMesh);
+	var canvasBlocks = new GeometricObjects(); 
 
 	// light?
 	var light = new THREE.PointLight(0xff80C0, 2, 0);
