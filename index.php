@@ -14,6 +14,11 @@
 </body>
 
 <style>
+	body {
+		margin: 0%;
+		padding: 0%;
+		background-color: #2E0854;
+	}
     .sidenav {
         height: 100%;
         width: 0;
@@ -63,20 +68,6 @@
         }
     }
 </style>
-
-
-<!--Sidebar Navigation-->
-<script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "20%";
-        document.getElementById("main").style.marginLeft = "20%";
-    }
-
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-        document.getElementById("main").style.marginLeft = "0";
-    }
-</script>
 
 <!--Keystroke Commands-->
 <script src="javascript/buttonpress.js"></script>

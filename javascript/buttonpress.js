@@ -1,38 +1,55 @@
-document.onkeypress = function (e) {
+document.addEventListener("keydown", function (e) {
+    var keyCode = e.keyCode;
+    switch (keyCode) {
         // Movement
-        if (e.keyCode == 97) { // a
+        case 65: // a
             canvasBlocks._cursor.moveLeft();
-        } else if (e.keyCode == 100) { // d
+            break;
+        case 68: // d
             canvasBlocks._cursor.moveRight();
-        } else if (e.keyCode == 119) { // w
+            break;
+        case 87: // w
             canvasBlocks._cursor.moveUp();
-        } else if (e.keyCode == 115) { // s
+            break;
+        case 83: // s
             canvasBlocks._cursor.moveDown();
-        } else if (e.keyCode == 113) { // q
+            break;
+        case 81: // q
             canvasBlocks._cursor.moveOut();
-        } else if (e.keyCode == 101) { // e
+            break;
+        case 69: // e
             canvasBlocks._cursor.moveIn();
-        } else if (e.keyCode == 114) { // r
+            break;
+        case 82: // r
             canvasBlocks._cursor.rotate();
-        } else if (e.keyCode == 116) { // t
+            break;
+        case 84: // t
             canvasBlocks._cursor.tilt();
-        } else if (e.keyCode == 102) { // f
+            break;
+        case 70: // f
             canvasBlocks._cursor.resizeUp();
-        } else if (e.keyCode == 103) { // g
+            break;
+        case 71: // g
             canvasBlocks._cursor.resizeDown();
-        }
+            break;
 
-        // Delete Block
-        if(e.keyCode == 52){
-            cursor.delete();
-        }
+            // Delete Block
+        case 8:
+            canvasBlocks.delete();
+            break;
 
-        // Draw items
-        if (e.keyCode == 122) { // z
+            // Draw items
+        case 90: // z
             canvasBlocks.drawCube(currentColor);
-        } else if (e.keyCode == 120) { // x
+            break;
+        case 88: // x
             canvasBlocks.drawCylinder(currentColor);
-        } else if (e.keyCode == 99) { //c
+            break;
+        case 67: // c
             canvasBlocks.drawSphere(currentColor);
-        }
+            break;
     }
+});
+document.onkeypress = function (e) {
+
+}

@@ -29,9 +29,7 @@ class Block {
 	 * TO-DO
 	 */
 	delete = function () {
-		var selectedObject = scene.getObjectByName(this._blockMesh.name);
-		scene.remove(selectedObject);
-		animate();
+		scene.remove(this._blockMesh);
 	}
 
 	getMesh = function () {
@@ -158,12 +156,24 @@ class GeometricObjects {
 
 	// Checks if the object already exists in the canvas
 	contains = function () {
+		return this.findMesh(this._cursor.getLocation()) != -1;
+	}
+
+	delete = function () {
+		var index = this.findMesh(this._cursor.getLocation());
+		if (index == -1)
+			return;
+
+		this._placedObjectMeshes[index].delete();
+	}
+
+	findMesh = function (location) {
 		for (var i = 0; i < this._placedObjectMeshes.length; i++) {
-			if (this._placedObjectMeshes[i].getLocation().equals(this._cursor.getLocation()))
-				return true;
+			if (this._placedObjectMeshes[i].getLocation().equals(location))
+				return i;
 		}
 
-		return false;
+		return -1;
 	}
 }
 
