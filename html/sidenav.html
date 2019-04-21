@@ -1,0 +1,169 @@
+<!--Sidebar NavigationmainCanvas-->
+<div id="mySidenav" class="sidenav">
+    <div id=closeButton>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    </div>
+
+    <div id="logo">
+        Quantum VR
+    </div>
+
+    <div class="canvasControls">
+        <div id="item"> <a href="javascript:canvasBlocks.clear()">Clear</a>
+        </div>
+        <div id="item"> <a href="javascript:canvasBlocks.load()">Load</a>
+        </div>
+        <div id="item"> <a href="javascript:canvasBlocks.export()">Export</a>
+        </div>
+    </div>
+
+    
+
+    <canvas></canvas>
+</div>
+
+<div id="openButton">
+    <span style="font-size:30px;margin-left:0.4%;cursor:pointer;z-index:5;position:absolute;color:#8B9BB5"
+        onclick="openNav()">&#9776;</span>
+</div>
+
+<style>
+    .sidenav canvas {
+        margin-bottom: 2%;
+        width: 90%;
+    }
+
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow: hidden;
+        transition: 1s;
+        padding-top: 60px;
+    }
+
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        color: #f1f1f1;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .sidenav a:hover {
+        color: #818181;
+    }
+
+    .sidenav .closebtn {
+        position: absolute;
+        top: 2px;
+        left: -8px;
+        font-size: 46px;
+    }
+
+    /* logo */
+    .sidenav #logo {
+        position: absolute;
+        margin-top: 0;
+        margin-left: 25%;
+        margin-right: 25%;
+        color: #b92e34;
+        font-size: 36px;
+    }
+
+    /* menuItems */
+    .sidenav .canvasControls {
+        position: absolute;
+        margin-top: 20%;
+        margin-left: 16%;
+        margin-right: 10%;
+        color: #dfd5d5;
+        font-family: "Verdana";
+        font-size: 16px;
+    }
+
+    .sidenav .canvasControls #item {
+        float: left;
+        position: relative;
+    }
+
+    #main {
+        transition: margin-left 2.2s;
+        padding: 16px;
+    }
+
+    @media screen and (max-height: 450px) {
+        .sidenav {
+            padding-top: 15px;
+        }
+
+        .sidenav a {
+            font-size: 18px;
+        }
+    }
+</style>
+
+<script src="javascript/three.js"></script>
+<script>
+    // New Scene!
+    const sidebarScene = new THREE.Scene();
+
+    // initialize the renderer
+    const sideBarRenderer = new THREE.WebGLRenderer({
+        antialias: true, // adjust in the future
+        canvas: document.querySelector(".previewCanvas canvas")
+    });
+
+    // set up the camera
+    var sideBarCamera = new THREE.PerspectiveCamera(70, 2, 1, 1000);
+    sideBarCamera.position.z = 400;
+    sideBarCamera.zoom = 20;
+
+    // light?
+    var light = new THREE.PointLight(0xff80C0, 2, 0);
+    light.position.set(200, 100, 300);
+    sidebarScene.add(light);
+
+    requestAnimationFrame(animate);
+
+    function animate(time) {
+        time *= 0.001; // seconds
+
+        render();
+        requestAnimationFrame(animate);
+    }
+
+    function render() {
+        sideBarRenderer.render(sidebarScene, sideBarCamera);
+    }
+</script>
+
+<!--Sidebar Navigation-->
+<script>
+    function openNav() {
+        document.getElementById("openButton").style.visibility = "hidden";
+        document.getElementById("mySidenav").style.width = "22%";
+        document.getElementById("main").style.marginLeft = "22%";
+    }
+
+    function closeNav() {
+        document.getElementById("openButton").style.visibility = "visible";
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+</script>
+
+<!-- Sidebar TickBoxes -->
+<script>
+    function frontLight() {
+
+    }
+
+    function rearLight() {
+
+    }
+</script>

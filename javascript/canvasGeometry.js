@@ -29,9 +29,7 @@ class Block {
 	 * TO-DO
 	 */
 	delete = function () {
-		var selectedObject = scene.getObjectByName(this._blockMesh.name);
-		scene.remove(selectedObject);
-		animate();
+		scene.remove(this._blockMesh);
 	}
 
 	getMesh = function () {
@@ -87,8 +85,9 @@ class GeometricObjects {
 			new THREE.BoxGeometry(10, 10, 10),
 			new THREE.MeshPhongMaterial({
 				color: 0xFFFFFF,
-				specular: 0xffffff,
-				shininess: 1000
+				opacity: 0.3,
+				shininess: 1000,
+				transparent: true
 			}),
 		);
 
@@ -155,14 +154,37 @@ class GeometricObjects {
 		this._placedObjectMeshes.push(block);
 	}
 
+	clear = function () {
+		for (var i = this._placedObjectMeshes.length - 1; i >= 0; i--) {
+			this.deleteElement(i);
+		}
+	}
+
 	// Checks if the object already exists in the canvas
 	contains = function () {
+		return this.findMesh(this._cursor.getLocation()) != -1;
+	}
+
+	delete = function () {
+		var index = this.findMesh(this._cursor.getLocation());
+		if (index == -1)
+			return;
+
+		this.deleteElement(index);
+	}
+
+	deleteElement = function (index) {
+		this._placedObjectMeshes[index].delete();
+		this._placedObjectMeshes.splice(index, 1);
+	}
+
+	findMesh = function (location) {
 		for (var i = 0; i < this._placedObjectMeshes.length; i++) {
-			if (this._placedObjectMeshes[i].getLocation().equals(this._cursor.getLocation()))
-				return true;
+			if (this._placedObjectMeshes[i].getLocation().equals(location))
+				return i;
 		}
 
-		return false;
+		return -1;
 	}
 }
 

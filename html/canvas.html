@@ -1,47 +1,55 @@
 <style>
-	body {
-		margin: 0%;
+	html {
+		overflow-y: hidden;
+		overflow-x: hidden;
 	}
 
-	canvas {
-		width: 100%;
-	}
-
-	.diagram {
-		margin-top: 5em;
-		margin-left: 3em;
-		width: 75%;
-		float: left;
+	.mainCanvas canvas {
+		margin-top: -0.5%;
+		margin-left: 3%;
+		width: 94%;
 	}
 </style>
 
 <p>
-	<span class="diagram"><canvas></canvas></span>
+	<span class="mainCanvas"><canvas></canvas></span>
 </p>
 
 <script src="javascript/three.js"></script>
+<script src="javascript/orbitcontrols.js"></script>
 <script src="javascript/canvasGeometry.js"></script>
 <script>
 	var currentColor = 0xFFFFFF;
 
-	// initialize the canvas
+	// Set up the scene
+	const scene = new THREE.Scene();
+
+	// initialize the renderer
 	const renderer = new THREE.WebGLRenderer({
 		antialias: true, // adjust in the future
-		canvas: document.querySelector(".diagram canvas")
+		canvas: document.querySelector(".mainCanvas canvas")
 	});
 
 	// set up the camera
-	var camera = new THREE.PerspectiveCamera(70, 2, 1, 1000);
+	const fov = 70;
+	const aspect = 2;
+	const near = 1;
+	const far = 1000;
+	var camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 	camera.position.z = 400;
 	camera.zoom = 5;
-	var scene = new THREE.Scene();
 
-	var canvasBlocks = new GeometricObjects(); 
+	// All the blocks in the scene
+	var canvasBlocks = new GeometricObjects();
 
 	// light?
-	var light = new THREE.PointLight(0xff80C0, 2, 0);
+	var light = new THREE.PointLight(0xFFFFFF, 2, 0);
 	light.position.set(200, 100, 300);
 	scene.add(light);
+
+	// Set up orbiter
+	var orbit = new THREE.OrbitControls(camera, renderer.canvas);
+	orbit.enableZoom = true;
 
 	var canvas = renderer.domElement;
 	var width = canvas.clientWidth;
