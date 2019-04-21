@@ -1,22 +1,73 @@
 <!--Sidebar NavigationmainCanvas-->
 <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div id=closeButton>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    </div>
     <!-- <span class="previewCanvas"><canvas></canvas></span> -->
 </div>
 
-<span style="font-size:30px;cursor:pointer;z-index:5" onclick="openNav()">&#9776;</span>
+<div id="openButton">
+    <span style="font-size:30px;margin-left:0.4%;cursor:pointer;z-index:5;position:absolute;color:#8B9BB5"
+        onclick="openNav()">&#9776;</span>
+</div>
 
 <style>
     .preivewCanvas canvas {
         margin-left: 3em;
         width: 70%;
     }
+
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 1s;
+        padding-top: 60px;
+    }
+
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .sidenav a:hover {
+        color: #f1f1f1;
+    }
+
+    .sidenav .closebtn {
+        position: absolute;
+        top: 2px;
+        left: -8px;
+        font-size: 46px;
+    }
+
+    #main {
+        transition: margin-left 2.2s;
+        padding: 16px;
+    }
+
+    @media screen and (max-height: 450px) {
+        .sidenav {
+            padding-top: 15px;
+        }
+
+        .sidenav a {
+            font-size: 18px;
+        }
+    }
 </style>
 
 <script src="javascript/three.js"></script>
 <script>
-    var currentColor = 0xFFFFFF;
-
     // New Scene!
     const sidebarScene = new THREE.Scene();
 
@@ -53,11 +104,13 @@
 <!--Sidebar Navigation-->
 <script>
     function openNav() {
-        document.getElementById("mySidenav").style.width = "20%";
-        document.getElementById("main").style.marginLeft = "20%";
+        document.getElementById("openButton").style.visibility = "hidden";
+        document.getElementById("mySidenav").style.width = "22%";
+        document.getElementById("main").style.marginLeft = "22%";
     }
 
     function closeNav() {
+        document.getElementById("openButton").style.visibility = "visible";
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("main").style.marginLeft = "0";
     }

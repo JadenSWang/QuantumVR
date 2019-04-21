@@ -154,6 +154,12 @@ class GeometricObjects {
 		this._placedObjectMeshes.push(block);
 	}
 
+	clear = function () {
+		for(var i = 0; i < this._placedObjectMeshes.length; i++){
+			this._placedObjectMeshes[i].delete();
+		}
+	}
+
 	// Checks if the object already exists in the canvas
 	contains = function () {
 		return this.findMesh(this._cursor.getLocation()) != -1;
