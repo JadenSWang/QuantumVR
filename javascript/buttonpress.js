@@ -43,10 +43,10 @@ document.addEventListener("keydown", function (e) {
             canvasBlocks.drawCube(currentColor);
             break;
         case 88: // x
-            canvasBlocks.drawCylinder(currentColor);
+            canvasBlocks.drawSphere(currentColor);
             break;
         case 67: // c
-            canvasBlocks.drawSphere(currentColor);
+            canvasBlocks.drawCylinder(currentColor);
             break;
     }
 });

@@ -3,7 +3,23 @@
     <div id=closeButton>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     </div>
-    <!-- <span class="previewCanvas"><canvas></canvas></span> -->
+
+    <div id="logo">
+        Quantum VR
+    </div>
+
+    <div class="canvasControls">
+        <div id="item"> <a href="javascript:canvasBlocks.clear()">Clear</a>
+        </div>
+        <div id="item"> <a href="javascript:canvasBlocks.load()">Load</a>
+        </div>
+        <div id="item"> <a href="javascript:canvasBlocks.export()">Export</a>
+        </div>
+    </div>
+
+    
+
+    <canvas></canvas>
 </div>
 
 <div id="openButton">
@@ -12,9 +28,9 @@
 </div>
 
 <style>
-    .preivewCanvas canvas {
-        margin-left: 3em;
-        width: 70%;
+    .sidenav canvas {
+        margin-bottom: 2%;
+        width: 90%;
     }
 
     .sidenav {
@@ -25,7 +41,7 @@
         top: 0;
         left: 0;
         background-color: #111;
-        overflow-x: hidden;
+        overflow: hidden;
         transition: 1s;
         padding-top: 60px;
     }
@@ -33,14 +49,13 @@
     .sidenav a {
         padding: 8px 8px 8px 32px;
         text-decoration: none;
-        font-size: 25px;
-        color: #818181;
+        color: #f1f1f1;
         display: block;
         transition: 0.3s;
     }
 
     .sidenav a:hover {
-        color: #f1f1f1;
+        color: #818181;
     }
 
     .sidenav .closebtn {
@@ -48,6 +63,32 @@
         top: 2px;
         left: -8px;
         font-size: 46px;
+    }
+
+    /* logo */
+    .sidenav #logo {
+        position: absolute;
+        margin-top: 0;
+        margin-left: 25%;
+        margin-right: 25%;
+        color: #b92e34;
+        font-size: 36px;
+    }
+
+    /* menuItems */
+    .sidenav .canvasControls {
+        position: absolute;
+        margin-top: 20%;
+        margin-left: 16%;
+        margin-right: 10%;
+        color: #dfd5d5;
+        font-family: "Verdana";
+        font-size: 16px;
+    }
+
+    .sidenav .canvasControls #item {
+        float: left;
+        position: relative;
     }
 
     #main {
@@ -113,5 +154,16 @@
         document.getElementById("openButton").style.visibility = "visible";
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("main").style.marginLeft = "0";
+    }
+</script>
+
+<!-- Sidebar TickBoxes -->
+<script>
+    function frontLight() {
+
+    }
+
+    function rearLight() {
+
     }
 </script>

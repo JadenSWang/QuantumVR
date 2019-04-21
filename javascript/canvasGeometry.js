@@ -155,8 +155,8 @@ class GeometricObjects {
 	}
 
 	clear = function () {
-		for(var i = 0; i < this._placedObjectMeshes.length; i++){
-			this._placedObjectMeshes[i].delete();
+		for (var i = this._placedObjectMeshes.length - 1; i >= 0; i--) {
+			this.deleteElement(i);
 		}
 	}
 
@@ -170,7 +170,12 @@ class GeometricObjects {
 		if (index == -1)
 			return;
 
+		this.deleteElement(index);
+	}
+
+	deleteElement = function (index) {
 		this._placedObjectMeshes[index].delete();
+		this._placedObjectMeshes.splice(index, 1);
 	}
 
 	findMesh = function (location) {
