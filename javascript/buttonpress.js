@@ -1,41 +1,39 @@
 document.addEventListener("keydown", function (e) {
     var keyCode = e.keyCode;
+    var toExecute = true;
+
     switch (keyCode) {
         // Movement
-        case 65: // a
-            canvasBlocks._cursor.moveLeft();
-            break;
-        case 68: // d
-            canvasBlocks._cursor.moveRight();
-            break;
+        // THE NUMBERS PASSED IN ARE NOT TRUE INTEGER VALUES, 0112 becomes 74
         case 87: // w
-            canvasBlocks._cursor.moveUp();
+            topGlyph.addGlyph(0110);
+            break;
+        case 65: // a
+            topGlyph.addGlyph(0111);
             break;
         case 83: // s
-            canvasBlocks._cursor.moveDown();
+            topGlyph.addGlyph(0112);
             break;
-        case 81: // q
-            canvasBlocks._cursor.moveOut();
+        case 68: // d
+            topGlyph.addGlyph(0113);
             break;
         case 69: // e
-            canvasBlocks._cursor.moveIn();
+            topGlyph.addGlyph(0114);
+            break;
+        case 81: // q
+            topGlyph.addGlyph(0115);
             break;
         case 82: // r
-            canvasBlocks._cursor.rotate();
+            topGlyph.addGlyph(0116);
             break;
         case 84: // t
-            canvasBlocks._cursor.tilt();
+            topGlyph.addGlyph(0117);
             break;
         case 70: // f
-            canvasBlocks._cursor.resizeUp();
+            topGlyph.addGlyph(0118);
             break;
         case 71: // g
-            canvasBlocks._cursor.resizeDown();
-            break;
-
-            // Delete Block
-        case 8:
-            canvasBlocks.delete();
+            topGlyph.addGlyph(0119);
             break;
 
             // Draw items
@@ -48,8 +46,11 @@ document.addEventListener("keydown", function (e) {
         case 67: // c
             canvasBlocks.drawCylinder(currentColor);
             break;
+        default:
+            toExecute = false;
+            break;
     }
-});
-document.onkeypress = function (e) {
 
-}
+    if (toExecute)
+        topGlyph.execute();
+});

@@ -51,29 +51,43 @@ class CursorBlock extends Block {
 	}
 
 	// basic cursor movement
-	moveLeft = function () {
-		this._blockMesh.position.set(this._blockMesh.position.x - 10, this._blockMesh.position.y, this._blockMesh.position.z);
+	moveUp = function (mesh) {
+		var blockMesh = getNotNull(mesh, this._blockMesh);
+		blockMesh.position.set(blockMesh.position.x, blockMesh.position.y + 10, blockMesh.position.z);
 	}
 
-	moveRight = function () {
-		this._blockMesh.position.set(this._blockMesh.position.x + 10, this._blockMesh.position.y, this._blockMesh.position.z);
+	moveLeft = function (mesh) {
+		var blockMesh = getNotNull(mesh, this._blockMesh);
+		blockMesh.position.set(blockMesh.position.x - 10, blockMesh.position.y, blockMesh.position.z);
 	}
 
-	moveDown = function () {
-		this._blockMesh.position.set(this._blockMesh.position.x, this._blockMesh.position.y - 10, this._blockMesh.position.z);
+	moveDown = function (mesh) {
+		var blockMesh = getNotNull(mesh, this._blockMesh);
+		blockMesh.position.set(blockMesh.position.x, blockMesh.position.y - 10, blockMesh.position.z);
 	}
 
-	moveUp = function () {
-		this._blockMesh.position.set(this._blockMesh.position.x, this._blockMesh.position.y + 10, this._blockMesh.position.z);
+	moveRight = function (mesh) {
+		var blockMesh = getNotNull(mesh, this._blockMesh);
+		blockMesh.position.set(blockMesh.position.x + 10, blockMesh.position.y, blockMesh.position.z);
 	}
 
-	moveOut = function () {
-		this._blockMesh.position.set(this._blockMesh.position.x, this._blockMesh.position.y, this._blockMesh.position.z + 10);
+	moveOut = function (mesh) {
+		var blockMesh = getNotNull(mesh, this._blockMesh);
+		blockMesh.position.set(blockMesh.position.x, blockMesh.position.y, blockMesh.position.z + 10);
 	}
 
-	moveIn = function () {
-		this._blockMesh.position.set(this._blockMesh.position.x, this._blockMesh.position.y, this._blockMesh.position.z - 10);
+	moveIn = function (mesh) {
+		var blockMesh = getNotNull(mesh, this._blockMesh);
+		blockMesh.position.set(blockMesh.position.x, blockMesh.position.y, blockMesh.position.z - 10);
 	}
+}
+
+function getNotNull(object1, object2) {
+	if (object1 != null) {
+		return object1;
+	}
+
+	return object2;
 }
 
 class GeometricObjects {
