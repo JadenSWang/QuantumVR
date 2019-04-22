@@ -18,6 +18,7 @@
 <script src="javascript/three.js"></script>
 <script src="javascript/orbitcontrols.js"></script>
 <script src="javascript/canvasGeometry.js"></script>
+<script src="javascript/geometron.js"></script>
 <script>
 	var currentColor = 0xFFFFFF;
 
@@ -42,6 +43,11 @@
 	// All the blocks in the scene
 	var canvasBlocks = new GeometricObjects();
 
+	// GEOMETRON! 
+	var glyphTable = new AllGlyphs();
+	importCommands(glyphTable);
+	var topGlyph = new Glyph();
+
 	// light?
 	var light = new THREE.PointLight(0xFFFFFF, 2, 0);
 	light.position.set(200, 100, 300);
@@ -63,4 +69,26 @@
 
 	// perform the first animation request
 	requestAnimationFrame(animate);
+
+	function importCommands(glyphTable) {
+		var cursorMesh = canvasBlocks._cursor._blockMesh;
+		// drawing sphere
+		glyphTable.addGlyph(new Action(0100, [canvasBlocks.drawCube, cursorMesh], "Draw Cube"));
+		glyphTable.addGlyph(new Action(0101, [canvasBlocks.drawSphere, cursorMesh], "Draw Sphere"));
+		glyphTable.addGlyph(new Action(0102, [canvasBlocks.drawCylinder, cursorMesh], "Draw Cylinder"));
+
+		// movement
+		glyphTable.addGlyph(new Action(0110, [canvasBlocks._cursor.moveUp, cursorMesh], "Move Up"));
+		glyphTable.addGlyph(new Action(0111, [canvasBlocks._cursor.moveLeft, cursorMesh], "Move Left"));
+		glyphTable.addGlyph(new Action(0112, [canvasBlocks._cursor.moveDown, cursorMesh], "Move Down"));
+		glyphTable.addGlyph(new Action(0113, [canvasBlocks._cursor.moveRight, cursorMesh], "Move Right"));
+		glyphTable.addGlyph(new Action(0114, [canvasBlocks._cursor.moveIn, cursorMesh], "Move In"));
+		glyphTable.addGlyph(new Action(0115, [canvasBlocks._cursor.moveOut, cursorMesh], "Move Out"));
+
+		glyphTable.addGlyph(new Action(0116, [canvasBlocks._cursor.rotate, cursorMesh], "Rotate"));
+		glyphTable.addGlyph(new Action(0117, [canvasBlocks._cursor.tilt, cursorMesh], "Tilt"));
+
+		glyphTable.addGlyph(new Action(0118, [canvasBlocks._cursor.resizeUp, cursorMesh], "Resize Up"));
+		glyphTable.addGlyph(new Action(0119, [canvasBlocks._cursor.resizeDown, cursorMesh], "Resize Down"));
+	}
 </script>
