@@ -1,6 +1,6 @@
 /*
 
-A Geometron is a virtual machine which has two 8x8x8 cubes of operations. Thus each cube has
+A Geometron is a geometric virtual machine which has two 8x8x8 cubes of operations. Thus each cube has
 512 elements, for a total of 1024 addresses
   Operations are divided into:
        - transformations of global geometric variables, e.g. x += side. 
@@ -24,8 +24,17 @@ A Geometron is a virtual machine which has two 8x8x8 cubes of operations. Thus e
          040-0176: keyboard actions, each of which maps to some other action/operation 
          0177: do nothing
          0200-0277: shape table, which is all programs/sequences/glyphs
-         0300-0377:  
-*/
+         0300-0377: 2d geometric actions
+         0400-0477: unused
+         0500-0577: unused
+         0600-0677: unused
+         0700-0777: 3d geometric actions, combined with actions on geometric variables of quantum states in higher dimensions
+
+    The symbol cube has a "font" stored in 01040[space] to 01176[tilde], which corresponds to the printable ASCII
+
+
+
+    */
 
 
 function Geometron(hypercubesource) {
@@ -90,7 +99,7 @@ function GVM2d(x0,y0,unit,theta0,canvas2d) {
 
     
     this.sequence = function(sequence,GVM2d) {
-
+        //sequence is an array of ints, which can get fed into actions as the address
     }
     this.action = function(address,GVM2d) {
         //03xx
@@ -129,6 +138,23 @@ function GVM2d(x0,y0,unit,theta0,canvas2d) {
         }
         if(address == 0316){
             GVM2d._scaleFactor = 5;
+        }
+
+        if(address == 0330){
+            GVM2d._x += GVM2d._side*Math.cos(GVM2d._theta);
+            GVM2d._y += GVM2d._side*Math.sin(GVM2d._theta);    
+        }
+        if(address == 0331){
+            GVM2d._x -= GVM2d._side*Math.cos(GVM2d._theta);
+            GVM2d._y -= GVM2d._side*Math.sin(GVM2d._theta);    
+        }
+        if(address == 0332){
+            GVM2d._x += GVM2d._side*Math.cos(GVM2d._theta - GVM2d._thetaStep);
+            GVM2d._y += GVM2d._side*Math.sin(GVM2d._theta - GVM2d._thetaStep);    
+        }
+        if(address == 0333){
+            GVM2d._x += GVM2d._side*Math.cos(GVM2d._theta + GVM2d._thetaStep);
+            GVM2d._y += GVM2d._side*Math.sin(GVM2d._theta + GVM2d._thetaStep);    
         }
 
 
