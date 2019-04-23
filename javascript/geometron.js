@@ -85,6 +85,8 @@ function StyleObject(){
     }
 }
 
+//this needs to get passed a context for a canvas.  It should know the size and shape of that canvas,
+//and will create a string with the SVG code for the same vector graphics of the same size and shape as it goes 
 function GVM2d(x0,y0,unit,theta0,canvas2d) {
     this._x0 = x0;
     this._x = x0;
@@ -101,9 +103,10 @@ function GVM2d(x0,y0,unit,theta0,canvas2d) {
     this.sequence = function(sequence,GVM2d) {
         //sequence is an array of ints, which can get fed into actions as the address
     }
+
     this.action = function(address,GVM2d) {
         //03xx
-        if(address == 0300){
+        if(address == 0300) {
             GVM2d._x = GVM2d.x0;
             GVM2d._y = GVM2d.y0;
             GVM2d._side = GVM2d.unit;
@@ -111,36 +114,36 @@ function GVM2d(x0,y0,unit,theta0,canvas2d) {
             GVM2d._theta = GVM2d.theta0;
             GVM2d._scaleFactor = 2;       
         }
-        if(address == 0304){
+        if(address == 0304) {
             GVM2d._thetaStep = Math.PI/2;
         }
-        if(address == 0305){
+        if(address == 0305) {
             GVM2d._thetaStep = 2*Math.PI/5;
         }
-        if(address == 0306){
+        if(address == 0306) {
             GVM2d._thetaStep = Math.PI/3;
         }
 
-        if(address == 0310){
+        if(address == 0310) {
             GVM2d._scaleFactor = Math.sqrt(2);
         }
-        if(address == 0311){
+        if(address == 0311) {
             GVM2d._scaleFactor = (Math.sqrt(5) + 1)/2;
         }
-        if(address == 0312){
+        if(address == 0312) {
             GVM2d._scaleFactor = Math.sqrt(3);
         }
-        if(address == 0313){
+        if(address == 0313) {
             GVM2d._scaleFactor = 2;
         }
-        if(address == 0314){
+        if(address == 0314) {
             GVM2d._scaleFactor = 3;
         }
-        if(address == 0316){
+        if(address == 0316) {
             GVM2d._scaleFactor = 5;
         }
 
-        if(address == 0330){
+        if(address == 0330) {
             GVM2d._x += GVM2d._side*Math.cos(GVM2d._theta);
             GVM2d._y += GVM2d._side*Math.sin(GVM2d._theta);    
         }
@@ -148,15 +151,39 @@ function GVM2d(x0,y0,unit,theta0,canvas2d) {
             GVM2d._x -= GVM2d._side*Math.cos(GVM2d._theta);
             GVM2d._y -= GVM2d._side*Math.sin(GVM2d._theta);    
         }
-        if(address == 0332){
+        if(address == 0332) {
             GVM2d._x += GVM2d._side*Math.cos(GVM2d._theta - GVM2d._thetaStep);
             GVM2d._y += GVM2d._side*Math.sin(GVM2d._theta - GVM2d._thetaStep);    
         }
-        if(address == 0333){
+        if(address == 0333) {
             GVM2d._x += GVM2d._side*Math.cos(GVM2d._theta + GVM2d._thetaStep);
             GVM2d._y += GVM2d._side*Math.sin(GVM2d._theta + GVM2d._thetaStep);    
         }
-
+        if(address == 0334) {
+            GVM2d.theta -= GVM2d.thetaStep; // CCW
+        }
+        if(address == 0335) {
+            GVM2d.theta += GVM2d.thetaStep; // CW
+        }
+        if(address == 0336) {
+            GVM2d.side /= GVM2d.scaleFactor; // -
+        }
+        if(address == 0337) {
+            GVM2d.side *= GVM2d.scaleFactor; // +
+        }
+    
+        if(address == 0340) {
+            ctx.beginPath();
+            ctx.arc(x, y, ctx.lineWidth, 0, 2 * Math.PI);
+            ctx.fill();	
+            ctx.closePath();
+            currentSVG += "<circle cx=\"";
+            currentSVG += Math.round(x).toString();
+            currentSVG += "\" cy = \"";
+            currentSVG += Math.round(y).toString();
+            currentSVG += "\" r = \"" + ctx.lineWidth.toString() + "\" stroke = \"" + currentStroke + "\" stroke-width = \"" + (ctx.lineWidth).toString() + "\" ";
+            currentSVG += "fill = \"" + currentStroke + "\" />\n";	
+        }
 
     }
 }
