@@ -1,94 +1,102 @@
-<style>
-	html {
-		overflow-y: hidden;
-		overflow-x: hidden;
-	}
-
-	.mainCanvas canvas {
-		margin-top: -0.5%;
-		margin-left: 3%;
-		width: 94%;
-	}
-</style>
-
+<!-- Canvas... Whoop!!! -->
 <p>
 	<span class="mainCanvas"><canvas></canvas></span>
 </p>
 
 <script src="javascript/three.js"></script>
-<script src="javascript/orbitcontrols.js"></script>
-<script src="javascript/canvasGeometry.js"></script>
-<script src="javascript/geometron.js"></script>
+<script src="javascript/jquery-3.4.1.js"></script>
 <script>
-	var currentColor = 0xFFFFFF;
+	var camera, scene, renderer;
+	var geometry, material;
+	var array;
 
-	// Set up the scene
-	const scene = new THREE.Scene();
+	init();
+	animate();
 
-	// initialize the renderer
-	const renderer = new THREE.WebGLRenderer({
-		antialias: true, // adjust in the future
-		canvas: document.querySelector(".mainCanvas canvas")
-	});
+	function init() {
 
-	// set up the camera
-	const fov = 70;
-	const aspect = 2;
-	const near = 1;
-	const far = 1000;
-	var camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-	camera.position.z = 400;
-	camera.zoom = 5;
+		camera = new THREE.PerspectiveCamera(70, window.innerWidth
+				/ window.innerHeight, 0.01, 100);
+		camera.position.z = 6;
+		scene = new THREE.Scene();
 
-	// All the blocks in the scene
-	var canvasBlocks = new GeometricObjects();
+		array = [];
 
-	// GEOMETRON! 
-	var glyphTable = new AllGlyphs();
-	importCommands(glyphTable);
-	var topGlyph = new Glyph();
+		// diamond textures
+		var loader = new THREE.CubeTextureLoader();
+		loader.setPath('javascript/');
 
-	// light?
-	var light = new THREE.PointLight(0xFFFFFF, 2, 0);
-	light.position.set(200, 100, 300);
-	scene.add(light);
+		var textureCube = loader
+				.load([ 'download.jpg', 'download.jpg', 'download.jpg',
+						'download.jpg', 'download.jpg', 'download.jpg']);
 
-	// Set up orbiter
-	var orbit = new THREE.OrbitControls(camera, renderer.canvas);
-	orbit.enableZoom = true;
+		material = new THREE.MeshBasicMaterial({
+			color : 0xffffff,
+			envMap : textureCube,
+		});
 
-	var canvas = renderer.domElement;
-	var width = canvas.clientWidth;
-	var height = canvas.clientHeight;
+		for (var i = 0; i < 200; i++) {
+			var size = Math.random();
+			geometry = new THREE.BoxGeometry(size, size, size);
 
-	if (canvas.width !== width || canvas.height !== height) {
-		renderer.setSize(width, height, false);
-		camera.aspect = width / height;
-		camera.updateProjectionMatrix();
+			var signaturex;
+			var signaturey;
+
+			if (Math.random() > 0.5) {
+				signaturex = 1;
+			} else {
+				signaturex = -1;
+			}
+			if (Math.random() > 0.5) {
+				signaturey = 1;
+			} else {
+				signaturey = -1;
+			}
+
+			var mesh = new THREE.Mesh(geometry, material);
+			var x = Math.random() * 5 * signaturex;
+			var y = Math.random() * 5 * signaturey;
+			var z = 0;//Math.random() * 5 * signature;
+
+			mesh.position.set(x, y, z);
+			array.push(mesh);
+		}
+
+		for (i = 0; i < array.length; i++) {
+			scene.add(array[i]);
+		}
+
+		renderer = new THREE.WebGLRenderer({
+			antialias : true, // adjust in the future
+			canvas : document.querySelector(".mainCanvas canvas")
+		});
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		document.body.appendChild(renderer.domElement);
 	}
 
-	// perform the first animation request
-	requestAnimationFrame(animate);
+	function animate() {
+		requestAnimationFrame(animate);
 
-	function importCommands(glyphTable) {
-		var cursorMesh = canvasBlocks._cursor._blockMesh;
-		// drawing sphere
-		glyphTable.addGlyph(new Action(0100, [canvasBlocks.drawCube, cursorMesh], "Draw Cube"));
-		glyphTable.addGlyph(new Action(0101, [canvasBlocks.drawSphere, cursorMesh], "Draw Sphere"));
-		glyphTable.addGlyph(new Action(0102, [canvasBlocks.drawCylinder, cursorMesh], "Draw Cylinder"));
+		for (var i = 0; i < array.length; i++) {
+			var mesh = array[i];
+			mesh.rotation.x += Math.random() / 10;
+			mesh.rotation.y += Math.random() / 10;
+		}
 
-		// movement
-		glyphTable.addGlyph(new Action(0110, [canvasBlocks._cursor.moveUp, cursorMesh], "Move Up"));
-		glyphTable.addGlyph(new Action(0111, [canvasBlocks._cursor.moveLeft, cursorMesh], "Move Left"));
-		glyphTable.addGlyph(new Action(0112, [canvasBlocks._cursor.moveDown, cursorMesh], "Move Down"));
-		glyphTable.addGlyph(new Action(0113, [canvasBlocks._cursor.moveRight, cursorMesh], "Move Right"));
-		glyphTable.addGlyph(new Action(0114, [canvasBlocks._cursor.moveIn, cursorMesh], "Move In"));
-		glyphTable.addGlyph(new Action(0115, [canvasBlocks._cursor.moveOut, cursorMesh], "Move Out"));
-
-		glyphTable.addGlyph(new Action(0116, [canvasBlocks._cursor.rotate, cursorMesh], "Rotate"));
-		glyphTable.addGlyph(new Action(0117, [canvasBlocks._cursor.tilt, cursorMesh], "Tilt"));
-
-		glyphTable.addGlyph(new Action(0118, [canvasBlocks._cursor.resizeUp, cursorMesh], "Resize Up"));
-		glyphTable.addGlyph(new Action(0119, [canvasBlocks._cursor.resizeDown, cursorMesh], "Resize Down"));
+		renderer.render(scene, camera);
 	}
 </script>
+
+
+<style>
+html {
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+
+.mainCanvas canvas {
+	margin-top: -0.5%;
+	margin-left: 3%;
+	width: 94%;
+}
+</style>

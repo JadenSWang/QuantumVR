@@ -22,6 +22,6 @@ body {
 </style>
 
 <!--Keystroke Commands-->
-<script src="javascript/buttonpress.js"></script>
+<script src="javascript/jquery-3.4.1.js"></script>
 
 </html>
