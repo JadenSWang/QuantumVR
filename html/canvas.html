@@ -26,10 +26,6 @@
 		var loader = new THREE.CubeTextureLoader();
 		loader.setPath('javascript/');
 
-		var textureCube = loader
-				.load([ 'download.jpg', 'download.jpg', 'download.jpg',
-						'download.jpg', 'download.jpg', 'download.jpg']);
-
 		material = new THREE.MeshBasicMaterial({
 			color : 0xffffff,
 			envMap : textureCube,
