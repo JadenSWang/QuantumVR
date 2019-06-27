@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -8,24 +8,33 @@
 
 <!-- Load Mandatory Libraries -->
 <script src="libraries/jquery-3.4.1.js"></script>
-<script src="libraries/index.js"></script>
+<script src="libraries/three.js"></script>
+
 <script>
-    $(document).read(() => {
-        $('#main').load('html/sidenav.html');
-        $('#canavs').load('html/canvas.html');
+    $(document).ready(() => {
+        // $('#main').load('html/sidenav.html');
+        $('#canvas').load('html/canvas.html');
+        $('#menubar').load('html/topnav.html');
     });
 </script>
 
+
 <body>
+    <div id="menubar"></div>
     <div id="main"></div>
     <div id="canvas"></div>
 </body>
 
 <style>
+    @import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+
     body {
+        /* overflow-x: hidden; */
+        /* overflow-y: hidden; */
+
         margin: 0%;
         padding: 0%;
-        background-color: #0A0F2C;
+        background-color: white;
     }
 </style>
 

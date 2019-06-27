@@ -1,8 +1,6 @@
 var express = require('express');
 var path = require('path');
 
-con.connect();
-
 var app = express();
 var server = app.listen(80, () => {
 	var host = server.address().address;
