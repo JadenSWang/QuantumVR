@@ -10,7 +10,7 @@ var server = app.listen(80, () => {
 });
 
 app.get('/', (req, res) => {
-	res.sendFile('index.html', { root: path.join(__dirname, './') });
+	res.sendFile('public/index.html', { root: path.join(__dirname, './') });
 });
 
 app.use(express.static('./public'));

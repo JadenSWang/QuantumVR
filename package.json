@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"start": "nodemon index.js"
+		"start": "nodemon html/index.js"
 	},
 	"dependencies": {
 		"ejs": "^2.6.2",
