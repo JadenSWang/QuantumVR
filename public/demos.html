@@ -12,12 +12,22 @@
 
 <script>
     $(document).ready(() => {
-        $('#menubar').load('html/topnav.html');
+        $('#canvas').load('html/canvas.html');
+        $('#menubar').load('html/topnav.html', '', () => {
+            // wait for the website to load before showing anything
+            $('body').show();
+        });
     });
 </script>
 
 <body>
     <div id="menubar"></div>
+    <!-- <div style="padding-left:16px">
+        <h2>Demo VR?!</h2>
+        <p>I like demos too</p>
+    </div> -->
+
+    <div id="canvas"></div>
 </body>
 
 <style>
@@ -27,6 +37,7 @@
         /* overflow-x: hidden; */
         /* overflow-y: hidden; */
 
+        display: none;
         margin: 0%;
         padding: 0%;
         background-color: white;

@@ -6,6 +6,10 @@
     <title>Quantum VR</title>
 </head>
 
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+</style>
+
 <!-- Load Mandatory Libraries -->
 <script src="libraries/jquery-3.4.1.js"></script>
 <script src="libraries/three.js"></script>
@@ -13,25 +17,28 @@
 <script>
     $(document).ready(() => {
         // $('#main').load('html/sidenav.html');
-        $('#canvas').load('html/canvas.html');
-        $('#menubar').load('html/topnav.html');
+        $('#menubar').load('html/topnav.html', '', () => {
+            $('body').show();
+        });
     });
 </script>
 
 
 <body>
     <div id="menubar"></div>
-    <div id="main"></div>
-    <div id="canvas"></div>
+
+    <div style="padding-left:16px">
+        <h2>Quantum VR!</h2>
+        <p>Quantum VR!</p>
+    </div>
 </body>
 
 <style>
-    @import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
-
     body {
         /* overflow-x: hidden; */
         /* overflow-y: hidden; */
 
+        display: none;
         margin: 0%;
         padding: 0%;
         background-color: white;
