@@ -1,0 +1,73 @@
+<html>
+
+<div class="settingsBar">
+    Canvas Settings
+</div>
+<div class="settingsDropdown">
+    <ul id="startButton">Start</ul>
+    <ul id="stopButton">Stop</ul>
+    <ul id="slider"></ul>
+</div>
+
+<script>
+    var open = true;
+
+    $(".settingsBar").click(() => {
+        if (open) {
+            $(".settingsDropdown").animate({
+                marginTop: '-20%'
+            }, 1000);
+        } else {
+            $(".settingsDropdown").animate({
+                marginTop: '-2%'
+            }, 1000);
+        }
+
+        open = !open;
+    });
+
+    $("#startButton").click(() => {
+        start = true;
+    });
+
+    $("#stopButton").click(() => {
+        start = false;
+    });
+</script>
+<style>
+    .settingsBar {
+        position: absolute;
+        background-color: black;
+        color: white;
+        margin-left: 88%;
+        margin-top: -3.25%;
+        width: 10%;
+        height: 20px;
+        font-size: 0.7vw;
+        padding-left: 2%;
+        padding-top: 0.25%;
+        cursor: pointer;
+        box-shadow: 4px 0 4px #bbb;
+        z-index: 100;
+    }
+
+    .settingsDropdown {
+        border-left: 5px solid #2FA1D6;
+        background-color: #303030;
+        position: absolute;
+        width: 12%;
+        height: 17%;
+        margin-top: -2%;
+        margin-left: 88%;
+    }
+
+    .settingsDropdown ul {
+        margin-top: 10px;
+        margin-left: -10%;
+        cursor: pointer;
+        color: white;
+        font-size: 0.7vw;
+    }
+</style>
+
+</html>

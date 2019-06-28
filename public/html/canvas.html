@@ -1,25 +1,27 @@
 <!-- Canvas... Whoop!!! -->
 <p>
+	<div id="settings"></div>
 	<span class="mainCanvas"><canvas></canvas></span>
 </p>
 
 <script>
+	var start = false;
+
 	var camera, scene, renderer;
 	var geometry, material;
 	var array;
 
 	init();
-	animate();
 
 	function init() {
-
-		const canvas = document.querySelector('canvas');
-		canvas.width = innerWidth;
-		canvas.height = innerHeight;
-		const renderer = new THREE.WebGLRenderer({ canvas });
+		const renderer = new THREE.WebGLRenderer({
+			canvas: document.querySelector('canvas'),
+			alpha: true
+		});
+		renderer.setSize($(document).width() * 0.92, $(document).height() * 0.88);
 
 		const fov = 75;
-		const aspect = innerWidth / innerHeight;  // the canvas default
+		const aspect = ($(document).width() * 0.92) / ($(document).height() * 0.88);
 		const near = 0.1;
 		const far = 5;
 		const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
@@ -56,8 +58,15 @@
 			makeInstance(geometry, 0x8844aa, 0),
 			makeInstance(geometry, 0xaa8844, 0),
 		];
+
+		renderer.render(scene, camera);
+
 		function render(time) {
-			time *= 0.0025;  // convert time to seconds
+			if (!start) {
+				requestAnimationFrame(render);
+				return;
+			}
+			time *= 0.00025;  // convert time to seconds
 
 			cubes.forEach((cube, ndx) => {
 				const speed = 1 + ndx * .1;
@@ -74,18 +83,20 @@
 		}
 		requestAnimationFrame(render);
 	}
+
+	// events
+	$(document).ready(() => {
+		$('#settings').load('html/canvasDropdownSettings.html');
+	});
+
+	window.onresize = function () { location.reload(); }
+
 </script>
 
-
 <style>
-	html {
-		overflow-y: hidden;
-		overflow-x: hidden;
-	}
-
 	.mainCanvas canvas {
 		margin-top: -0.5%;
-		margin-left: 3%;
+		margin-left: 4.25%;
 		width: 94%;
 	}
 </style>
