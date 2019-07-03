@@ -7,12 +7,14 @@
 </head>
 
 <!-- Load Mandatory Libraries -->
-<script src="libraries/jquery-3.4.1.js"></script>
-<script src="libraries/three.js"></script>
+<script src="libraries\jquery-3.4.1.js"></script>
+<script src="libraries\three.js"></script>
+<script src="libraries\OrbitControls.js"></script>
 
 <script>
     $(document).ready(() => {
         $('#canvas').load('html/canvas.html');
+        // $('#canvas').load('html/probabilityVisualization.html');
         $('#menubar').load('html/topnav.html', '', () => {
             // wait for the website to load before showing anything
             $('body').show();
@@ -21,12 +23,7 @@
 </script>
 
 <body>
-    <div id="menubar"></div>
-    <!-- <div style="padding-left:16px">
-        <h2>Demo VR?!</h2>
-        <p>I like demos too</p>
-    </div> -->
-
+    <div id="menubar"></div>    
     <div id="canvas"></div>
 </body>
 

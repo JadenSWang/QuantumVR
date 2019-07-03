@@ -6,12 +6,21 @@
 <div class="settingsDropdown">
     <ul id="startButton">Start</ul>
     <ul id="stopButton">Stop</ul>
-    <ul id="slider"></ul>
+    <input type="range" min="1" max="10" value="1" class="timeSlider" id="timeSlider">
 </div>
 
 <script>
-    var open = true;
+    $(document).ready(() => {
+        timeIncrement = slider.value / 1000;
+    });
 
+    var slider = document.getElementById("timeSlider");
+    slider.oninput = () => {
+        timeIncrement = slider.value / 1000;
+    };
+
+    // sidebar
+    var open = true;
     $(".settingsBar").click(() => {
         if (open) {
             $(".settingsDropdown").animate({
@@ -27,11 +36,11 @@
     });
 
     $("#startButton").click(() => {
-        start = true;
+        running = true;
     });
 
     $("#stopButton").click(() => {
-        start = false;
+        running = false;
     });
 </script>
 <style>
@@ -67,6 +76,11 @@
         cursor: pointer;
         color: white;
         font-size: 0.7vw;
+        border: 0.01px solid white;
+    }
+
+    .settingsDropdown .timeSlider {
+        margin-left: 10%;
     }
 </style>
 
