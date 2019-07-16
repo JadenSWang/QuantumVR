@@ -1,0 +1,125 @@
+<!-- Canvas... Whoop!!! -->
+<p>
+    <div id="settings"></div>
+    <span class="mainCanvas"><canvas></canvas></span>
+</p>
+
+<script src="../javascript/json2Cubit.js"></script>
+<script>
+    var index = 0;
+    var running = false;
+    var camera, scene, renderer;
+    var pivots = [];
+
+    init();
+    render();
+
+    function init() {
+        // renderer
+        renderer = new THREE.WebGLRenderer({
+            canvas: document.querySelector('canvas'),
+            alpha: true
+        });
+        renderer.setSize($(document).width() * 0.92, $(document).height() * 0.88);
+
+        const fov = 75;
+        const aspect = ($(document).width() * 0.92) / ($(document).height() * 0.88);
+        const near = 0.1;
+        const far = 5;
+        camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+        camera.position.z = 2;
+
+        var controls = new THREE.OrbitControls(camera);
+        controls.rotateSpeed = 1.0;
+        controls.zoomSpeed = 1.2;
+        controls.panSpeed = 0.8;
+
+        // scene
+        scene = new THREE.Scene();
+        scene.add(new THREE.AxesHelper());
+        var gridhelper = new THREE.GridHelper(1000, 10, 0x0000ff, 0x808080);
+        scene.add(gridhelper);
+
+        addObjects();
+        requestAnimationFrame(render);
+    }
+
+    function addObjects() {
+        var light1 = new THREE.PointLight(0xff0000, 1, 100);
+        light1.position.set(0, -1, 1);
+        scene.add(light1);
+
+        var light2 = new THREE.PointLight(0xff0000, 1, 100);
+        light2.position.set(0, 0, 0);
+        scene.add(light2);
+
+        addBox();
+        addBox();
+        addBox();
+    }
+
+    function addBox() {
+        // actual geometry
+        var pivotPoint = new THREE.SphereGeometry(0.01);
+        var material = new THREE.MeshNormalMaterial();
+
+        var mesh = new THREE.Mesh(pivotPoint, material);
+        mesh.position.set(0, 0, 0);
+        scene.add(mesh);
+
+        var rotatingGeo = new THREE.BoxGeometry(0.1, 0.6, 0.1);
+        rotatingGeo.rotateZ(THREE.Math.degToRad(90)); // ROTATE GEOMETRY SO IT'S IN THE CORRECT ORIENTATION
+        var rotatingMesh = new THREE.Mesh(rotatingGeo, material);
+        // move the geometry so its rotating properly
+        rotatingMesh.position.set(0, .3, 0);
+        rotatingMesh.rotation.set(0, 0, Math.PI / 2);
+
+        var pivot = new THREE.Group();
+        pivot.position.set(0, 0, 0); // MOVE THE PIVOT BACK TO WORLD ORIGN
+        pivot.add(rotatingMesh);
+        mesh.add(pivot);
+        pivots.push(pivot);
+    }
+
+    function render(time) {
+        if (!running) {
+            requestAnimationFrame(render);
+            return;
+        }
+
+        time *= 0.0025;
+
+        if (index == data.length - 1) {
+            running = false;
+        }
+
+        rotate(data[index].phi0, data[index].theta0, 0);
+        rotate(data[index].phi1, data[index].theta1, 1);
+        rotate(data[index].phi2, data[index].theta2, 2);
+
+        renderer.render(scene, camera);
+
+        requestAnimationFrame(render);
+        index++;
+    }
+
+    function rotate(phi, theta, index) {
+        pivots[index].rotation.y = phi;
+        pivots[index].rotation.z = theta;
+    }
+
+    // events
+    $(document).ready(() => {
+        $('#settings').load('html/canvasDropdownSettings.html');
+    });
+
+    window.onresize = function () { location.reload(); }
+</script>
+
+<style>
+    .mainCanvas canvas {
+        margin-top: -0.5%;
+        margin-left: 4.25%;
+        width: 94%;
+    }
+</style>
