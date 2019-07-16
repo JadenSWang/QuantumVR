@@ -4,7 +4,9 @@
 	<span class="mainCanvas"><canvas></canvas></span>
 </p>
 
+<script src="../javascript/json1Cubit.js"></script>
 <script>
+	var index = 0;
 	var running = true;
 	var camera, scene, renderer;
 	var pivot;
@@ -79,21 +81,23 @@
 			requestAnimationFrame(render);
 			return;
 		}
-		time *= 0.0000025;
 
-		var a = 1;
-		var b = 10;
+		time *= 0.0025;
 
-		var theta = a / 100;
-		var phi = b / 100;
+		if (index == data.length - 1) {
+			running = false;
+		}
 
-		console.log(theta);
-		pivot.rotation.y += phi;
-		pivot.rotation.z += theta;
+		var theta = data[index].theta;
+		var phi = data[index].phi;
+
+		pivot.rotation.y = phi;
+		pivot.rotation.z = theta;
 
 		renderer.render(scene, camera);
 
 		requestAnimationFrame(render);
+		index++;
 	}
 
 
@@ -103,7 +107,6 @@
 	});
 
 	window.onresize = function () { location.reload(); }
-
 </script>
 
 <style>
