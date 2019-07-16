@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 
 var app = express();
-var server = app.listen(8080, () => {
+var server = app.listen(80, () => {
 	var host = server.address().address;
 	var port = server.address().port;
 

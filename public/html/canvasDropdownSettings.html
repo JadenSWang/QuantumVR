@@ -6,6 +6,7 @@
 <div class="settingsDropdown">
     <ul id="startButton">Start</ul>
     <ul id="stopButton">Stop</ul>
+    <ul id="resetButton">Reset</ul>
     <input type="range" min="1" max="10" value="1" class="timeSlider" id="timeSlider">
 </div>
 
@@ -41,6 +42,10 @@
 
     $("#stopButton").click(() => {
         running = false;
+    });
+
+    $("#resetButton").click(() => {
+        index = 0;
     });
 </script>
 <style>

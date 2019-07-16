@@ -46,7 +46,7 @@
 		scene.add(light2);
 
 
-		for (var i = 0; i < 64; i++) {
+		for (var i = 0; i < 6; i++) {
 			// actual geometry
 			var pivotPoint = new THREE.SphereGeometry(0.01);
 			var material = new THREE.MeshLambertMaterial();
@@ -83,21 +83,21 @@
 			var pivot = pivots[i];
 
 			var yaddition = Math.random();
-			if (yaddition > 0.5) {
+			if (yaddition > 0.8) {
 				pivot.rotation.y += Math.random() / 50;
 			} else {
 				pivot.rotation.y -= Math.random() / 50;
 			} 
 			
 			var xaddition = Math.random();
-			if (xaddition > 0.5) {
+			if (xaddition > 0.3) {
 				pivot.rotation.x += Math.random() / 50;
 			} else {
 				pivot.rotation.x -= Math.random() / 50;
-			} 
+			}
 			
 			var zaddition = Math.random();
-			if (zaddition > 0.5) {
+			if (zaddition > 0.6) {
 				pivot.rotation.z += Math.random() / 50;
 			} else {
 				pivot.rotation.z -= Math.random() / 50;
