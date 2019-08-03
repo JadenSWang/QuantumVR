@@ -4,10 +4,10 @@
     <span class="mainCanvas"><canvas></canvas></span>
 </p>
 
-<script src="../javascript/json2Cubit.js"></script>
+<script src="../javascript/json3Cubit.js"></script>
 <script>
     var index = 0;
-    var running = false;
+    var running = true;
     var camera, scene, renderer;
     var pivots = [];
 
@@ -53,9 +53,9 @@
         light2.position.set(0, 0, 0);
         scene.add(light2);
 
-        addBox();
-        addBox();
-        addBox();
+        for (var i = 0; i < 7; i++) {
+            addBox();
+        }
     }
 
     function addBox() {
@@ -96,6 +96,10 @@
         rotate(data[index].phi0, data[index].theta0, 0);
         rotate(data[index].phi1, data[index].theta1, 1);
         rotate(data[index].phi2, data[index].theta2, 2);
+        rotate(data[index].phi3, data[index].theta3, 3);
+        rotate(data[index].phi4, data[index].theta4, 4);
+        rotate(data[index].phi5, data[index].theta5, 5);
+        rotate(data[index].phi6, data[index].theta6, 6);
 
         renderer.render(scene, camera);
 
@@ -110,7 +114,6 @@
 
     // events
     $(document).ready(() => {
-        $('#settings').load('html/canvasDropdownSettings.html');
     });
 
     window.onresize = function () { location.reload(); }
