@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Demos</title>
+</head>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<body>
+    <div id=topnav></div>
+    <div id=canvas></div>
+</body>
+
+<style>
+    body {
+        /* overflow-x: hidden; */
+        /* overflow-y: hidden; */
+        margin: 0%;
+        padding: 0%;
+        background-color: white;
+    }
+
+    .row {
+        width: 100%;
+        margin-top: 3%;
+        margin-left: 17%;
+        left: auto;
+        right: auto;
+    }
+
+    .row .col {
+        width: 22%;
+    }
+</style>
+
+
+<!-- Load Mandatory Libraries -->
+<script src="libraries\jquery-3.4.1.js"></script>
+<script src="libraries\three.js"></script>
+<script src="libraries\OrbitControls.js"></script>
+
+<script>
+    $(document).ready(() => {
+        $('#topnav').load('html/topnav.html');
+        $('#canvas').load('html/boxCube4Cubit.html');
+    });
+</script>
+
+</html>

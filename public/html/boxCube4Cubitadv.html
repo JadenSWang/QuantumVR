@@ -3,7 +3,7 @@
     <span class="mainCanvas"><canvas></canvas></span>
 </p>
 
-<script src="../javascript/json4Cubit.js"></script>
+<script src="../javascript/json4Cubitadv.js"></script>
 <script>
     var index = 0;
     var running = true;
@@ -92,21 +92,9 @@
             index = 0;
         }
         
-        rotate(data[index].phi0, data[index].theta0, 0);
-        rotate(data[index].phi1, data[index].theta1, 1);
-        rotate(data[index].phi2, data[index].theta2, 2);
-        rotate(data[index].phi3, data[index].theta3, 3);
-        rotate(data[index].phi4, data[index].theta4, 4);
-        rotate(data[index].phi5, data[index].theta5, 5);
-        rotate(data[index].phi6, data[index].theta6, 6);
-        rotate(data[index].phi7, data[index].theta7, 7);
-        rotate(data[index].phi8, data[index].theta8, 8);
-        rotate(data[index].phi9, data[index].theta9, 9);
-        rotate(data[index].phi10, data[index].theta10, 10);
-        rotate(data[index].phi11, data[index].theta11, 11);
-        rotate(data[index].phi12, data[index].theta12, 12);
-        rotate(data[index].phi13, data[index].theta13, 13);
-        rotate(data[index].phi14, data[index].theta14, 14);
+        for(var i = 0; i < data[index].thetas.length; i++){
+            rotate(data[index].phis[i], data[index].thetas[i], i);
+        }
 
         renderer.render(scene, camera);
 
