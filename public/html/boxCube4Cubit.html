@@ -1,6 +1,5 @@
 <!-- Canvas... Whoop!!! -->
 <p>
-    <div id="settings"></div>
     <span class="mainCanvas"><canvas></canvas></span>
 </p>
 
@@ -119,11 +118,6 @@
         pivots[index].rotation.y = phi;
         pivots[index].rotation.z = theta;
     }
-
-    // events
-    $(document).ready(() => {
-        $('#settings').load('html/canvasDropdownSettings.html');
-    });
 
     window.onresize = function () { location.reload(); }
 </script>
